@@ -1,4 +1,4 @@
-# infra-shared 
+# infra-shared 🤖
 Shared infrastructure modules used throughout my projects
 
 ## Files
