@@ -115,20 +115,19 @@ resource "aws_cloudfront_distribution" "webapp-cfd" {
 }
 
 # Route 53
-# Define Zones
-resource "aws_route53_zone" "webapp-r53-zones" {
+# Retrieve Zone IDs
+data "aws_route53_zone" "webapp-r53-zones" {
     provider = aws.main
     for_each = toset(var.domains)
 
     name = each.key
-    comment = local.app-ref
 }
 
 # Route 53 Record pointing domain and www. at CloudFront
 resource "aws_route53_record" "webapp-r53-A" {
     provider = aws.main
     for_each = toset(var.domains)
-    zone_id = aws_route53_zone.webapp-r53-zones[each.key].zone_id
+    zone_id = data.aws_route53_zone.webapp-r53-zones[each.key].zone_id
     name = "${local.env-webprefix}${each.key}"
     type = "A"
 
@@ -142,7 +141,7 @@ resource "aws_route53_record" "webapp-r53-A" {
 resource "aws_route53_record" "webapp-r53-A-WWW" {
     provider = aws.main
     for_each = toset(var.domains)
-    zone_id = aws_route53_zone.webapp-r53-zones[each.key].zone_id
+    zone_id = data.aws_route53_zone.webapp-r53-zones[each.key].zone_id
     name = "www.${local.env-webprefix}${each.key}"
     type = "A"
 
