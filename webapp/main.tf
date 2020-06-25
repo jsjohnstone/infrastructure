@@ -115,13 +115,12 @@ resource "aws_cloudfront_distribution" "webapp-cfd" {
 }
 
 # Route 53
-# Define Zones
-resource "aws_route53_zone" "webapp-r53-zones" {
+# Retrieve Zone IDs
+data "aws_route53_zone" "webapp-r53-zones" {
     provider = aws.main
     for_each = toset(var.domains)
 
     name = each.key
-    comment = local.app-ref
 }
 
 # Route 53 Record pointing domain and www. at CloudFront
