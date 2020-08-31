@@ -1,4 +1,4 @@
-# infra-shared 🤖
+# infrastructure 🤖
 Shared infrastructure used throughout my projects.
 
 ## Files
