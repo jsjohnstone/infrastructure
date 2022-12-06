@@ -1,7 +1,7 @@
 # Terraform
 terraform {
     backend "s3" {
-        bucket = "jamiejohnstone-com-infra"
+        bucket = "miejco-infra"
         key = "tf-shared-domains"
         region = "eu-west-2"
     }
